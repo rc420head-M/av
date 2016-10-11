@@ -52,7 +52,6 @@
 #endif
 
 #include "omx/OMXUtils.h"
-
 namespace android {
 
 enum MetaKeyType{
@@ -74,7 +73,7 @@ static const MetaKeyEntry MetaKeyTable[] {
    {kKeyChannelCount         , "channel-count"          , INT32},
    {kKeyCodecId              , "codec-id"               , INT32},
    {kKeyCodedSampleBits      , "coded-sample-bits"      , INT32},
-   {'ffmt'                   , "file-format"            , INT32},
+   {kKeyFileFormat           , "file-format"            , INT32},
    {kKeyRawCodecSpecificData , "raw-codec-specific-data", CSD},
    {kKeyPcmEncoding          , "pcm-encoding"           , INT32},
    {kKeyRVVersion            , "rv-version"             , INT32},
@@ -191,7 +190,14 @@ void FFMPEGSoftCodec::convertMessageToMetaDataFF(
     }
 }
 
-
+template<class T>
+static void InitOMXParams(T *params) {
+    params->nSize = sizeof(T);
+    params->nVersion.s.nVersionMajor = 1;
+    params->nVersion.s.nVersionMinor = 0;
+    params->nVersion.s.nRevision = 0;
+    params->nVersion.s.nStep = 0;
+}
 const char* FFMPEGSoftCodec::overrideComponentName(
         uint32_t /*quirks*/, const sp<MetaData> &meta, const char *mime, bool isEncoder) {
     const char* componentName = NULL;

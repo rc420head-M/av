@@ -126,10 +126,13 @@ private:
             const sp<AMessage> &msg, sp<IOMX> OMXhandle,
             IOMX::node_id nodeID);
 
+<<<<<<< HEAD
     static status_t setALACFormat(
             const sp<AMessage> &msg, sp<IOMX> OMXhandle,
             IOMX::node_id nodeID);
 
+=======
+>>>>>>> 491b90d0ff4213e0561755426f334cdf3b7a523d
     static status_t setAPEFormat(
             const sp<AMessage> &msg, sp<IOMX> OMXhandle,
             IOMX::node_id nodeID);

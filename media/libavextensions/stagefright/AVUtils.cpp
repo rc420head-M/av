@@ -41,7 +41,6 @@
 #include <media/stagefright/MetaData.h>
 #include <media/stagefright/ACodec.h>
 #include <media/stagefright/MediaCodec.h>
-
 #include "omx/OMXUtils.h"
 
 #if defined(QCOM_HARDWARE) || defined(EXTENDED_OFFLOAD_ENABLED)

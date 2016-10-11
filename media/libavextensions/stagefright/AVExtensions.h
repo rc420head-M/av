@@ -45,6 +45,7 @@ struct ACodec;
 struct MediaCodec;
 struct ALooper;
 class MediaExtractor;
+class AudioParameter;
 class CameraParameters;
 class MediaBuffer;
 class CameraSource;

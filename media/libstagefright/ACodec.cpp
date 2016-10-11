@@ -3748,7 +3748,11 @@ status_t ACodec::setupVideoEncoder(
     OMX_VIDEO_CODINGTYPE compressionFormat;
     err = GetVideoCodingTypeFromMime(mime, &compressionFormat);
 
+    err = FFMPEGSoftCodec::setVideoFormat(err,
+                msg, mime, mOMX, mNode, mIsEncoder, &compressionFormat,
+                mComponentName.c_str());
     if (err != OK) {
+        ALOGE("Not a supported video mime type: %s", mime);
         return err;
     }
 
@@ -4455,7 +4459,7 @@ status_t ACodec::setupErrorCorrectionParameters() {
 
     errorCorrectionType.bEnableHEC = OMX_FALSE;
     errorCorrectionType.bEnableResync = OMX_TRUE;
-    errorCorrectionType.nResynchMarkerSpacing = 256;
+    errorCorrectionType.nResynchMarkerSpacing = 0;
     errorCorrectionType.bEnableDataPartitioning = OMX_FALSE;
     errorCorrectionType.bEnableRVLC = OMX_FALSE;
 
@@ -4940,7 +4944,7 @@ status_t ACodec::getPortFormat(OMX_U32 portIndex, sp<AMessage> &notify) {
 
                 default:
                 {
-                    if (!mIsEncoder && !strncmp(mComponentName.c_str(), "OMX.ffmpeg.", 11)) {
+                    if (!strncmp(mComponentName.c_str(), "OMX.ffmpeg.", 11)) {
                         err = FFMPEGSoftCodec::getVideoPortFormat(portIndex,
                                 (int)videoDef->eCompressionFormat, notify, mOMX, mNode);
                         if (err == OK) {
@@ -5081,7 +5085,7 @@ status_t ACodec::getPortFormat(OMX_U32 portIndex, sp<AMessage> &notify) {
 
                 case OMX_AUDIO_CodingFLAC:
                 {
-                    if (!mIsEncoder && !strncmp(mComponentName.c_str(), "OMX.ffmpeg.", 11)) {
+                    if (!strncmp(mComponentName.c_str(), "OMX.ffmpeg.", 11)) {
                         err = FFMPEGSoftCodec::getAudioPortFormat(portIndex,
                                 (int)audioDef->eEncoding, notify, mOMX, mNode);
                         if (err != OK) {
@@ -5244,7 +5248,7 @@ status_t ACodec::getPortFormat(OMX_U32 portIndex, sp<AMessage> &notify) {
                 }
 
                 default:
-                    if (!mIsEncoder && !strncmp(mComponentName.c_str(), "OMX.ffmpeg.", 11)) {
+                    if (!strncmp(mComponentName.c_str(), "OMX.ffmpeg.", 11)) {
                         err = FFMPEGSoftCodec::getAudioPortFormat(portIndex,
                                 (int)audioDef->eEncoding, notify, mOMX, mNode);
                     }

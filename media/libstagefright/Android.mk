@@ -162,8 +162,6 @@ LOCAL_SANITIZE := unsigned-integer-overflow signed-integer-overflow
 # FFMPEG plugin
 LOCAL_C_INCLUDES += $(TOP)/external/stagefright-plugins/include
 
-#LOCAL_CFLAGS += -DLOG_NDEBUG=0
-
 ifeq ($(BOARD_USE_SAMSUNG_COLORFORMAT), true)
 LOCAL_CFLAGS += -DUSE_SAMSUNG_COLORFORMAT
 
@@ -173,6 +171,7 @@ LOCAL_C_INCLUDES += \
 	$(TOP)/hardware/samsung/exynos4/include
 endif
 
+LOCAL_CFLAGS += -DLOG_NDEBUG=0
 LOCAL_MODULE:= libstagefright
 
 LOCAL_MODULE_TAGS := optional
